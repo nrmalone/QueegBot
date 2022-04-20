@@ -15,3 +15,4 @@ Cynicism and joking aside, this is a passion project Discord bot that my little 
 - [discord.py](https://github.com/Rapptz/discord.py)
 ### Current Version
 1.0.0
+testerrrrr
