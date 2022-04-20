@@ -1,4 +1,3 @@
-from turtle import down
 import discord
 from discord.ext import commands
 import youtube_dl

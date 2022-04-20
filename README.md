@@ -18,3 +18,4 @@ Not started ◍ | ◐ in progress | ◯ complete
 1.0.0   04-20-22 11:00am    Initial commit<br>
 1.0.1   04-20-22 12:45pm    Added simple jukebox<br>
 1.0.2   04-20-22 1:05pm     Added automatic replies for jukebox<br>
+1.0.3   04-20-22 3:05pm     Added coinflip and dice rolling<br>
