@@ -1,4 +1,5 @@
 # QueegBot: Your New ~~Best~~ *Worst* Friend
+![queegbot](https://user-images.githubusercontent.com/62485172/164296596-c1a3c2dd-98fb-4fa2-af8c-a2bfd13887bf.png)
 ### Description
 You know what the worst part of having mortal friends is? They're _time-sensitive_!<br>
 With **QueegBot**, you'll experience that familiar disappointment but this time without emotional baggage. Both a blessing and a curse, **QueegBot**'s $0 budget and 2 person dev team means that much like some of your human companions, he's only there when he feels like it and he's a dry texter. This means he's not a hotline or free therapy... <sub>unless venting to the brick wall of his DMs that we might occasionally sift through is your definition of therapy</sub><br><br>
