@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 import youtube_dl
 
-class music(commands.Cog):
+class jukebox(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -18,8 +18,11 @@ class music(commands.Cog):
         # connect to a vc if not already connect else move to user's vc
         if ctx.voice_client is None:
             await voice_channel.connect()
+            await ctx.send("I'm here, MAN!!", delete_after=10)
         else:
             await ctx.voice_client.move_to(voice_channel)
+            await ctx.send("Who moved me, MAN!?", delete_after=10)
+
     
     # leave
     # leaves voice channel
@@ -46,20 +49,20 @@ class music(commands.Cog):
     # pause
     @commands.command()
     async def pause(self,ctx):
-        await ctx.voice_client.pause()
-        await ctx.send("whoa ⏸")
+        ctx.voice_client.pause()
+        await ctx.send("whoa ⏸", delete_after=10)
 
     # unpause
     @commands.command()
     async def unpause(self,ctx):
-        await ctx.voice_client.resume()
-        await ctx.send("soda ▶")
+        ctx.voice_client.resume()
+        await ctx.send("soda ▶", delete_after=10)
 
     # stop
     @commands.command()
     async def stop(self,ctx):
-        await ctx.voice_client.stop()
-        await ctx.send("grim 💀")
+        ctx.voice_client.stop()
+        await ctx.send("grim 💀", delete_after=10)
 
 def setup(client):
-    client.add_cog(music(client))
+    client.add_cog(jukebox(client))

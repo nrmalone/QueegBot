@@ -16,4 +16,5 @@ Not started ◍ | ◐ in progress | ◯ complete
 - [discord.py](https://github.com/Rapptz/discord.py)
 ### Change Notes
 1.0.0   04-20-22 11:00am    Initial commit<br>
-1.0.1   04-20-22 1:00pm     Added simple jukebox<br>
+1.0.1   04-20-22 12:45pm    Added simple jukebox<br>
+1.0.2   04-20-22 1:05pm     Added automatic replies for jukebox<br>
