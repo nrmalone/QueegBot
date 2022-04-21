@@ -3,6 +3,7 @@ import auth
 from discord.ext import commands
 import jukebox
 import rng
+import cards
 
 client = commands.Bot(command_prefix='~', intents = discord.Intents.all())
 cogs = []
@@ -10,6 +11,7 @@ cogs = []
 #import classes into cogs object and add them to the bot's client
 cogs += [jukebox]
 cogs += [rng]
+cogs += [cards]
 for i in range(len(cogs)):
     cogs[i].setup(client)
 
