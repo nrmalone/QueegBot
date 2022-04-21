@@ -6,18 +6,30 @@ class rng(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    # coin
+
     @commands.command()
     async def coin(self,ctx):
+        """
+        Allows users to flip a coin with command "coin"
+        Sends heads or tails message according to result
+        """
         coin = random.randint(0,1)
         if coin == 0:
             await ctx.send(":coin: heads", delete_after=30)
         if coin == 1:
             await ctx.send(":coin: tails", delete_after=30)
     
-    #roll <# of dice> <type of die>
+
     @commands.command()
     async def roll(self,ctx,diceQuantity=None,diceType=None):
+        """
+        Allows users to roll 1 or more dice of a specified length
+        No provided dice count defaults to 1, command specified below:
+        
+        "roll <# of dice> <type of die>" 
+        or 
+        "roll <# of dice>d<type of die>"
+        """
         await ctx.message.delete()
         roll = 0
         if 'd' in ctx.message.content:
