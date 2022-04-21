@@ -21,3 +21,4 @@ Not started ◍ | ◐ in progress | ◯ complete
 1.0.3   04-20-22 3:05pm     Added coinflip and dice rolling<br>
 1.0.4   04-20-22 4:00pm     RNG cosmetic changes/cleanup<br>
 1.0.5   04-20-22 5:00pm     General cleanup and prep bingo.py<br>
+1.0.6   04-20-22 6:40pm     Dice --> Roll, adjusted print spacing<br>
