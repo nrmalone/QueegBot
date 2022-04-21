@@ -6,12 +6,12 @@ With **QueegBot**, you'll experience that familiar disappointment but this time 
 Cynicism and joking aside, this is a passion project Discord bot that my little brother and I are developing for our own server, but we might make it a public bot in the future.
 ### Planned Games/Features
 Not started ◍ | ◐ in progress | ◯ complete
-- Bingo ◍
+- Bingo ◐
 - Blackjack ◍
 - Poker ◍
 - Preprogrammed reaction images/inside jokes ◍
 - Audio playback ◐
-- Simple RNG gimmicks (i.e. dice rolls, coin flip) ◍
+- Simple RNG gimmicks (i.e. dice rolls, coin flip) ◐
 ### Dependencies
 - [discord.py](https://github.com/Rapptz/discord.py)
 ### Change Notes
@@ -19,3 +19,5 @@ Not started ◍ | ◐ in progress | ◯ complete
 1.0.1   04-20-22 12:45pm    Added simple jukebox<br>
 1.0.2   04-20-22 1:05pm     Added automatic replies for jukebox<br>
 1.0.3   04-20-22 3:05pm     Added coinflip and dice rolling<br>
+1.0.4   04-20-22 4:00pm     RNG cosmetic changes/cleanup<br>
+1.0.5   04-20-22 5:00pm     General cleanup and prep bingo.py<br>

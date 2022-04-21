@@ -38,7 +38,7 @@ class jukebox(commands.Cog):
         FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
         YDL_OPTIONS = {'format':"bestaudio"}
         vc = ctx.voice_client
-        # call on 
+        
         with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
             info = ydl.extract_info(url, download=False)
             url2 = info['formats'][0]['url']
@@ -49,19 +49,19 @@ class jukebox(commands.Cog):
     @commands.command()
     async def pause(self,ctx):
         ctx.voice_client.pause()
-        await ctx.send("whoa ⏸", delete_after=10)
+        await ctx.send("whoa :pause_button:", delete_after=10)
 
     # unpause
     @commands.command()
     async def unpause(self,ctx):
         ctx.voice_client.resume()
-        await ctx.send("soda ▶", delete_after=10)
+        await ctx.send("soda :arrow_forward:", delete_after=10)
 
     # stop
     @commands.command()
     async def stop(self,ctx):
         ctx.voice_client.stop()
-        await ctx.send("grim 💀", delete_after=10)
+        await ctx.send("u were right :skull_crossbones:", delete_after=10)
 
 def setup(client):
     client.add_cog(jukebox(client))
