@@ -17,7 +17,15 @@ class cards(commands.Cog):
         for i, game in enumerate(games):
             msg += f"\t{i+1}.\t{game}\n"
         await ctx.send(msg, delete_after=60)
+    
 
+    @commands.command()
+    async def claymore(self, ctx):
+        """
+        Places a friendly M18 A1 APERSMINE for
+        users using the text channel
+        """
+        await ctx.send(file=discord.File(fp='.\claymore.png'))
 
 def setup(client):
     client.add_cog(cards(client))
