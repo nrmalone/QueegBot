@@ -13,7 +13,7 @@ class customize(commands.Cog):
         """
         if len(game_input) > 40:
             await ctx.send(str("CALM THE FUCK DOWN, MAAAAAN!!!"), delete_after=10)
-            game_input = f"LoL with {str(ctx.author)[:-5]}"
+            game_input = f"LoL with {str(ctx.author.display_name)}"
         game = discord.Game(str(game_input))
         await self.client.change_presence(activity=game)
 
