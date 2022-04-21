@@ -8,6 +8,10 @@ class cards(commands.Cog):
 
     @commands.command()
     async def cards(self, ctx):
+        """
+        Provides the user (via a Discord message) of which card games
+        are available in this module (MANUALLY EDITED)
+        """
         games = ["Poker", "Blackjack", "Speed"]
         msg = "Available games:\n"
         for i, game in enumerate(games):
@@ -16,7 +20,12 @@ class cards(commands.Cog):
     
     # TODO: Move this command to a newly created "customize.py"
     @commands.command()
+    
     async def update(self, ctx, game_input):
+        """
+        Allows the user to update the bot user's
+        "Playing {game}" status text
+        """
         game = discord.Game(str(game_input))
         await self.client.change_presence(activity=game)
 
