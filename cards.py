@@ -15,22 +15,17 @@ class cards(commands.Cog):
         games = ["Poker", "Blackjack", "Speed"]
         msg = "Available games:\n"
         for i, game in enumerate(games):
-            msg += f"\t{i+1}. {game}\n"
+            msg += f"\t{i+1}.\t{game}\n"
         await ctx.send(msg, delete_after=60)
     
-    # TODO: Move this command to a newly created "customize.py"
+
     @commands.command()
-    
-    async def update(self, ctx, game_input):
+    async def claymore(self, ctx):
         """
-        Allows the user to update the bot user's
-        "Playing {game}" status text
+        Places a friendly M18 A1 APERSMINE for
+        users using the text channel
         """
-        if len(game_input) > 40:
-            ctx.send(str("CALM THE FUCK DOWN, MAAAAAN!!!"))
-            game_input = f"LoL with {str(ctx.author)[:-5]}"
-        game = discord.Game(str(game_input))
-        await self.client.change_presence(activity=game)
+        await ctx.send(file=discord.File(fp='.\claymore.png'))
 
 def setup(client):
     client.add_cog(cards(client))

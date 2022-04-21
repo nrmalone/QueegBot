@@ -4,6 +4,7 @@ from discord.ext import commands
 import jukebox
 import rng
 import cards
+import customize
 
 client = commands.Bot(command_prefix='~', intents = discord.Intents.all())
 cogs = []
@@ -12,6 +13,7 @@ cogs = []
 cogs += [jukebox]
 cogs += [rng]
 cogs += [cards]
+cogs += [customize]
 for i in range(len(cogs)):
     cogs[i].setup(client)
 
