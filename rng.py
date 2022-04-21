@@ -15,14 +15,14 @@ class rng(commands.Cog):
         if coin == 1:
             await ctx.send(":coin: tails", delete_after=30)
     
-    #dice <# dices> <type of die>
+    #roll <# of dice> <type of die>
     @commands.command()
-    async def dice(self,ctx,diceQuantity,diceType):
+    async def roll(self,ctx,diceQuantity,diceType):
         roll = 0
         if str.isnumeric(diceQuantity):
             for die in range(1, int(diceQuantity)):
                 roll += random.randint(1,int(diceType))
-        await ctx.send(":game_die: " + (diceQuantity + "d" + diceType + " :arrow_right:" + str(roll)), delete_after=30)
+        await ctx.send(":game_die: " + (diceQuantity + "d" + diceType + " :arrow_right: " + str(roll)), delete_after=30)
 
 def setup(client):
     client.add_cog(rng(client))
