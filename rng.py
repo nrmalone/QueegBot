@@ -17,8 +17,12 @@ class rng(commands.Cog):
     
     #roll <# of dice> <type of die>
     @commands.command()
-    async def roll(self,ctx,diceQuantity,diceType):
+    async def roll(self,ctx,diceQuantity=None,diceType=None):
         roll = 0
+        if 'd' in ctx.message.content:
+            roll_text = (ctx.message.content[6:]).split('d')
+            diceQuantity = str(roll_text[0].strip())
+            diceType = str(roll_text[1].strip())
         if str.isnumeric(diceQuantity):
             for die in range(1, int(diceQuantity)):
                 roll += random.randint(1,int(diceType))
