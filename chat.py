@@ -15,7 +15,7 @@ class chat(commands.Cog):
         users in the specified text channel
         """
         await ctx.message.delete()
-        await ctx.send(file=discord.File(fp='.\claymore.png'), delete_after=60)
+        await ctx.send(file=discord.File(fp='./assets/claymore.png'), delete_after=60)
         try:
             # Waits to see if the mine is triggered
             msg = await self.client.wait_for('message', timeout=5)

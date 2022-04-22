@@ -9,9 +9,9 @@ Not started ◍ | ◐ in progress | ◯ complete
 - Bingo ◐
 - Blackjack ◍
 - Poker ◍
-- Preprogrammed reaction images/inside jokes ◍
+- Preprogrammed reaction images/inside jokes ◐
 - Audio playback ◐
-- Simple RNG gimmicks (i.e. dice rolls, coin flip) ◐
+- Simple RNG gimmicks (i.e. dice rolls, coin flip) ◯
 ### Dependencies
 - [discord.py](https://github.com/Rapptz/discord.py)
 ### Change Notes
@@ -23,3 +23,4 @@ Not started ◍ | ◐ in progress | ◯ complete
 1.0.5   04-20-22 5:00pm     General cleanup and prep bingo.py<br>
 1.0.6   04-20-22 6:40pm     Dice --> Roll, adjusted print spacing<br>
 1.1.0   04-21-22 10:05am    Roll fixes, claymore integration, organization<br>
+1.1.1   04-21-22 5:15pm     Added sfx cmd, moved claymore.png to assets<br>

@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import youtube_dl
+from pathlib import Path
 
 class jukebox(commands.Cog):
     def __init__(self, client):
@@ -12,8 +13,9 @@ class jukebox(commands.Cog):
     async def join(self,ctx):
         # if author.voice doesn't detect user is in a vc, send message telling them to join vc
         if ctx.author.voice is None:
-            await ctx.send("Connect to a voice channel, MAN!!")
-        voice_channel = ctx.author.voice.channel
+            await ctx.send("Connect to a voice channel, " + ctx.author.display_name + "!!")
+        if not ctx.author.voice is None:
+            voice_channel = ctx.author.voice.channel
         # connect to a vc if not already connect else move to user's vc
         if ctx.voice_client is None:
             await voice_channel.connect()
@@ -62,6 +64,29 @@ class jukebox(commands.Cog):
     async def stop(self,ctx):
         ctx.voice_client.stop()
         await ctx.send("u were right :skull_crossbones:", delete_after=10)
+
+    """
+    Decided we can try an all-encompassing sfx that checks when we add new mp3's to assets directory
+    """
+    # snore
+    @commands.command()
+    async def sfx(self,ctx,sfx):
+        if ctx.author.voice is None:
+            await ctx.send("Connect to a voice channel, " + ctx.author.display_name + "!!")
+        if not ctx.author.voice is None:
+            voice_channel = ctx.author.voice.channel
+        # connect to a vc if not already connect else move to user's vc
+        if ctx.voice_client is None:
+            await voice_channel.connect()
+        else:
+            await ctx.voice_client.move_to(voice_channel)
+
+        if Path(__file__.replace('jukebox.py',('/assets/' + sfx + '.mp3'))).is_file():
+            sound = discord.FFmpegPCMAudio(source='./assets/'+ sfx +'.mp3', executable='./assets/ffmpeg.exe')
+            vc = ctx.voice_client
+            vc.play(sound)
+        else:
+            await ctx.send("ain't no fuckin ~~point~~ *audio*")
 
 def setup(client):
     client.add_cog(jukebox(client))
