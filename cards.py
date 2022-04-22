@@ -15,24 +15,49 @@ class cards(commands.Cog):
         takes a choice in that same channel, and calls that game's function to play
         """
         async def poker(self, ctx):
-            print("Poker selected successfully")
-    
+            print("Poker game starting...")
+            pass
+
 
         async def blackjack(self, ctx):
-            print("Blackjack selected successfully")
-        
+            print("Blackjack game starting...")
+            deck = list()
+            suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+            suits_dict = {x[0]: x for x in suits}
+            num_dict = {'1': 'Ace', '11': 'Jack', '12': 'Queen', '13': 'King'}
+            rnum_dict = {num_dict[key]: key for key in num_dict}
+            for suit in suits:
+                for n in range(1,14):
+                    deck.append(suit + str(n))
+            dealer = []
+            hand = []
+            def printout(card: str) -> str:
+                num = card[len(suits_dict[card[0]]):]
+                if int(num) in (1, 11, 12, 13):
+                    num = num_dict[num]
+                return num + ' of ' + suits_dict[card[0]]
+            card = random.choice(deck)
+            dealer.append(card)
+            await ctx.send("Dealer starts with a " + printout(card), delete_after=120)
+            while card in dealer or card in hand:
+                card = random.choice(deck)
+            hand.append(card)
+            await ctx.send("You start with a " + printout(card), delete_after=120)
+            print("Blackjack game finished!")
+
 
         async def speed(self, ctx):
-            print("Speed selected successfully")
-        
+            print("Speed game starting...")
+            pass
+
+
+        await ctx.message.delete()
         game_dict = {"Poker" : poker, "Blackjack": blackjack, "Speed": speed}
         choice_dict = {}
         msg = "Available games:\n"
         for i, game in enumerate(game_dict.keys()):
             msg += f"\t{i+1}.\t{game}\n"
             choice_dict[str(i+1)] = game
-        for num in choice_dict:
-            print(f"{num}: {choice_dict[num]}")
         msg += "Enter a # to make your choice."
         await ctx.send(msg, delete_after=10)
         og_author, og_channel = ctx.author, ctx.channel
@@ -48,6 +73,7 @@ class cards(commands.Cog):
         except TE:
             await ctx.send("You didn't even pick one, MAN!!!", delete_after=10)
             return
+        await choice.delete()
         game = str(choice_dict[choice.content])
         await ctx.send("You chose: " + game, delete_after=5)
         await game_dict[game](self, ctx)
