@@ -13,7 +13,7 @@ class rng(commands.Cog):
         Allows users to flip a coin with command "coin"
         Sends heads or tails message according to result
         """
-        await ctx.message.delete
+        await ctx.message.delete()
         coin = random.randint(0,1)
         if coin == 0:
             await ctx.send(":coin: heads", delete_after=30)
