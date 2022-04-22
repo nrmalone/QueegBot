@@ -65,7 +65,7 @@ class rng(commands.Cog):
                 start = int(args[0])
                 stop = int(args[1])
             num = random.randint(start, stop)
-            await ctx.send(":1234:  " + str(num) + "  :1234:", delete_after=60)
+            await ctx.send(":1234:  " + f"{start}-{stop}" + " :arrow_right: " + str(num) + "  :1234:", delete_after=60)
         except:
             await ctx.send("Learn to TYPE properly, MAN!!!", delete_after=10)
 
