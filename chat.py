@@ -14,7 +14,6 @@ class chat(commands.Cog):
         Places a friendly M18 A1 APERSMINE for
         users in the specified text channel
         """
-        await ctx.message.delete()
         await ctx.send(file=discord.File(fp='./assets/claymore.png'), delete_after=60)
         try:
             # Waits to see if the mine is triggered
@@ -22,10 +21,12 @@ class chat(commands.Cog):
         except TE:
             # Informs the chatters that the claymore is now inactive
             await ctx.send("You're safe for now...", delete_after=55)
+            await ctx.message.delete()
             return
         # If the mine is triggered, attacks the chatter with a variety of punishments
         if msg.author.id == self.client.user.id:
             await ctx.send("Nice try, MAN!!!", delete_after=10)
+            await ctx.message.delete()
             return
         await ctx.send(str(msg.author.display_name + " IS ONE DUMB MOTHERFUCKER!!!"), delete_after=60)
         prev_channel = ctx.author.voice.channel
@@ -36,6 +37,7 @@ class chat(commands.Cog):
         except TE:
             pass
         await msg.author.edit(mute=False, deafen=False, voice_channel=prev_channel)
+        await ctx.message.delete()
 
 def setup(client):
     client.add_cog(chat(client))
