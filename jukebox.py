@@ -86,7 +86,7 @@ class jukebox(commands.Cog):
             vc = ctx.voice_client
             vc.play(sound)
         else:
-            await ctx.send("ain't no fuckin ~~point~~ *audio*")
+            await ctx.send("ain't no fuckin ~~point~~ *audio*", delete_after=10)
 
 def setup(client):
     client.add_cog(jukebox(client))

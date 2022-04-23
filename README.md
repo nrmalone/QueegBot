@@ -7,7 +7,7 @@ Cynicism and joking aside, this is a passion project Discord bot that my little 
 ### Planned Games/Features
 Not started ◍ | ◐ in progress | ◯ complete
 - Bingo ◐
-- Blackjack ◍
+- Blackjack ◐
 - Poker ◍
 - Preprogrammed reaction images/inside jokes ◐
 - Audio playback ◐
@@ -24,3 +24,4 @@ Not started ◍ | ◐ in progress | ◯ complete
 1.0.6   04-20-22 6:40pm     Dice --> Roll, adjusted print spacing<br>
 1.1.0   04-21-22 10:05am    Roll fixes, claymore integration, organization<br>
 1.1.1   04-21-22 5:15pm     Added sfx cmd, moved claymore.png to assets<br>
+1.2.0   04-22-22 6:00pm     Added ~bingo card formatting & functionality<br>
