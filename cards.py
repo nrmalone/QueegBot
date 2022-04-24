@@ -1,3 +1,4 @@
+import time
 import random
 import discord
 from discord.ext import commands
@@ -26,7 +27,7 @@ class cards(commands.Cog):
             suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
             suits_dict = {x[0]: x for x in suits}
             suitsyms = {'H':'♡', 'D':'♢', 'C':'♧', 'S':'♤'}
-            num_dict = {'1': 'Ace', '11': 'Jack', '12': 'Queen', '13': 'King'}
+            num_dict = {'1': 'Ace', '10': 'X', '11': 'Jack', '12': 'Queen', '13': 'King'}
             snum_dict = {key: num_dict[key][0] for key in num_dict.keys()}
             rnum_dict = {num_dict[key]: int(key) for key in num_dict}
             for suit in suits:
@@ -34,19 +35,15 @@ class cards(commands.Cog):
                     deck.append(suit + str(n))
             dealer = []
             player = []
-            def printout(card: str) -> str:
-                num = card[len(suits_dict[card[0]]):]
-                if int(num) in (1, 11, 12, 13):
-                    num = num_dict[num]
-                return num + ' of ' + suits_dict[card[0]]
-            def printout2(hand:str, *args) -> str:
+            
+            def printout(hand:str, *args) -> str:
                 """
                 Helper function to printout a player's hand
                 
                 :param hand: str text 'dealer' or 'player' to determine text color
                 :*args: accepts any number of cards to print out in a row
 
-                returns string (5 lines long) of a player's hand in ASCII text
+                returns string (7 lines long) of a dealer/player's hand in ASCII text
                 """
                 if type(args[0]) is list:
                     args = args[0]
@@ -55,44 +52,57 @@ class cards(commands.Cog):
                 for cardidx in cards:
                     cards[cardidx]['num'] = args[int(cardidx)][len(suits_dict[args[int(cardidx)][0]]):]
                     
-                    if int(cards[cardidx]['num']) in (1, 11, 12, 13):
-                        if int(cards[cardidx]['num']) != 1:
+                    if int(cards[cardidx]['num']) in (1, 10, 11, 12, 13):
+                        if int(cards[cardidx]['num']) != '1':
                             hand_total += 10
-                            print('current card:', cards[cardidx], 'adding 10')
                         else:
                             hand_total += 11
-                            print('current card:', cards[cardidx], 'adding 11')
                         cards[cardidx]['num'] = snum_dict[cards[cardidx]['num']]
                         cards[cardidx]['suit'] = suitsyms[args[int(cardidx)][0]]
                     else:
                         hand_total += int(cards[cardidx]['num'])
-                        print('current card:', cards[cardidx], 'adding', cards[cardidx]['num'])
                         cards[cardidx]['suit'] = suitsyms[args[int(cardidx)][0]]
                 # final = f"+---+\n {suit}      \n    {num}    \n      {suit} \n+---+"
-                final = ("+---+" + "    ") * len(args) + '\n'
-                for cardidx in range(len(args)):
-                    final += (f" {cards[str(cardidx)]['suit']}" + ' '*7) if (cardidx % 2) == 0 else (f" {cards[str(cardidx)]['suit']}" + ' '*6)
+                iter_range = len(args) if len(args) <= 6 else 6
+                final = ("+---+" + "    ") * iter_range + '\n'
+                for cardidx in range(iter_range):
+                    final += (f" {cards[str(cardidx)]['suit']}" + ' '*7) if cardidx not in (1,5) else (f" {cards[str(cardidx)]['suit']}" + ' '*6)
                 final += '\n'
-                for cardidx in range(len(args)):
-                    final += "  {:<3}    ".format(cards[str(cardidx)]['num']) if (cardidx % 2) == 0 else "  {:^3}   ".format(cards[str(cardidx)]['num'])
+                for cardidx in range(iter_range):
+                    # final += "  {:<3}    ".format(cards[str(cardidx)]['num']) if (cardidx % 2) == 0 else "  {:^3}   ".format(cards[str(cardidx)]['num'])
+                    final += "  {:<3}    ".format(cards[str(cardidx)]['num'])
                 final += '\n'
-                for cardidx in range(len(args)):
-                    final += (f"   {cards[str(cardidx)]['suit']}" + ' '*5) if (cardidx % 2) == 0 else (f"   {cards[str(cardidx)]['suit']}" + ' '*4)
-                final = '\n' + final + '\n' + ("+---+" + "    ") * len(args)
-                print('hand_total:', hand_total)
-                return ('```yaml\nDealer\'s Hand\n' + final + f'\n\nHand total of {hand_total}\n```') if hand == 'dealer' else ('```fix\nYour Hand\n' + final + f'\n\nHand total of {hand_total}\n```')
-            for i in range(5):
+                for cardidx in range(iter_range):
+                    final += (f"   {cards[str(cardidx)]['suit']}" + ' '*5) if cardidx not in (1,5) else (f"   {cards[str(cardidx)]['suit']}" + ' '*4)
+                final = '\n' + final + '\n' + ("+---+" + "    ") * iter_range
+                hand_total_print = f"Hand total of {hand_total}" if len(args) <= 6 else f"Hand total of {hand_total} (extra cards not shown)"
+                return ('```yaml\nDealer\'s Hand\n' + final + f'\n\n{hand_total_print}\n```') if hand == 'dealer' else ('```fix\nYour Hand\n' + final + f'\n\n{hand_total_print}\n```')
+            
+            for i in range(2):
                 card = random.choice(deck)
                 dealer.append(card)
             welcome_str = f"Blackjack --- {ctx.message.author.display_name} vs. the House"
             game_msg = await ctx.send(welcome_str, delete_after=120)
-            # game_msg = await ctx.send("Dealer starts with a " + printout(card), delete_after=120)
-            while card in dealer or card in player:
-                card = random.choice(deck)
-            player.append(card)
-            # await game_msg.edit(suppress=False, content=str(game_msg.content + "\nYou start with a " + printout(card)), delete_after=120)
-            await game_msg.edit(suppress=False, content=str(game_msg.content + "\n{}".format(printout2('dealer', dealer))), delete_after=120)
-            await game_msg.edit(suppress=False, content=str(game_msg.content + "\n{}".format(printout2('player', player))), delete_after=120)
+            for i in range(4):
+                while card in dealer or card in player:
+                    card = random.choice(deck)
+                player.append(card)
+            await game_msg.edit(suppress=False, content=str(game_msg.content + "\n{}".format(printout('dealer', dealer))), delete_after=120)
+            await game_msg.edit(suppress=False, content=str(game_msg.content + "\n{}".format(printout('player', player))), delete_after=120)
+            async def fullprint():
+                nonlocal game_msg, welcome_str, dealer, player
+                await game_msg.edit(suppress=False, content=welcome_str+str("\n{}".format(printout('dealer', dealer)))+str("\n{}".format(printout('player', player))), delete_after=120)
+            # TESTING fullprint FUNCTIONALITY BELOW
+            #
+            # time.sleep(2)
+            # for i in range(5):
+            #     card = random.choice(deck)
+            #     dealer.append(card)
+            # await fullprint()
+            # time.sleep(2)
+            # card = random.choice(deck)
+            # player.append(card)
+            # await fullprint()
             print("Blackjack game finished!")
 
 
