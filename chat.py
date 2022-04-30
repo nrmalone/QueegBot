@@ -14,7 +14,6 @@ class chat(commands.Cog):
         Places a friendly M18 A1 APERSMINE for
         users in the specified text channel
         """
-        await ctx.message.delete()
         await ctx.send(file=discord.File(fp='./assets/claymore.png'), delete_after=60)
         try:
             # Waits to see if the mine is triggered
