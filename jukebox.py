@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 import youtube_dl
 from pathlib import Path
+from selenium import webdriver
+from time import sleep
 
 class jukebox(commands.Cog):
     def __init__(self, client):
@@ -34,18 +36,38 @@ class jukebox(commands.Cog):
     # play
     # plays audio thru youtube url (requires a few seconds to download)
     @commands.command()
-    async def play(self,ctx,url):
+    async def play(self,ctx,urlsearch):
         # have bot stop playing audio and provide bot with settings for playing audio
         ctx.voice_client.stop()
         FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
         YDL_OPTIONS = {'format':"bestaudio"}
         vc = ctx.voice_client
         
-        with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
-            info = ydl.extract_info(url, download=False)
-            url2 = info['formats'][0]['url']
-            source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
-            vc.play(source)
+        if urlsearch[0] != "\"":
+            with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+                info = ydl.extract_info(urlsearch, download=False)
+                url2 = info['formats'][0]['url']
+                source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
+                vc.play(source)
+
+        elif urlsearch[0] == "\"":
+            options = webdriver.ChromeOptions()
+            options.add_experimental_option("detach", True)
+            browser = webdriver.Chrome(chrome_options=options)
+            browser.get('https://www.youtube.com')
+            sleep(0.25)
+            search = urlsearch.strip()
+            search = search[1:-1]
+            browser.find_element_by_xpath('//*[@id="search"]').send_keys(search)
+            browser.find_element_by_xpath('//*[@id="search-icon-legacy"]/yt-icon').click()
+            sleep(0.5)
+            videolink = browser.find_element_by_xpath('/html/body/ytd-app/div[1]/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/div[2]/ytd-item-section-renderer[2]/div[3]/ytd-video-renderer[1]/div[1]/div/div[1]/div/h3/a').get_attribute("href")
+            browser.quit()            
+            with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+                info = ydl.extract_info(videolink, download=False)
+                url2 = info['formats'][0]['url']
+                source = await discord.FFmpegOpusAudio.from_probe(url2,**FFMPEG_OPTIONS)
+                vc.play(source)
     
     # pause
     @commands.command()
